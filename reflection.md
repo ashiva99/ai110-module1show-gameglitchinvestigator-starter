@@ -8,6 +8,10 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - List at least two concrete bugs you noticed at the start  
   (for example: "the secret number kept changing" or "the hints were backwards").
 
+The hints were backwards. If secret is 5, It should show go lower when given number is 8, else show go hiher when given number 4. 
+After winning or lose, the new game doesn't work when clicked on new game button. 
+The difficulty level, normal and hard is in reverse order. Normal should be 1-50 and Hard should be 1-100. 
+
 ---
 
 ## 2. How did you use AI as a teammate?

@@ -1,14 +1,5 @@
-import random
 import streamlit as st
-
-def get_range_for_difficulty(difficulty: str):
-    if difficulty == "Easy":
-        return 1, 20
-    if difficulty == "Normal":
-        return 1, 100
-    if difficulty == "Hard":
-        return 1, 50
-    return 1, 100
+from logic_utils import check_guess, get_range_for_difficulty, new_game_state
 
 
 def parse_guess(raw: str):
@@ -27,24 +18,6 @@ def parse_guess(raw: str):
         return False, None, "That is not a number."
 
     return True, value, None
-
-
-def check_guess(guess, secret):
-    if guess == secret:
-        return "Win", "🎉 Correct!"
-
-    try:
-        if guess > secret:
-            return "Too High", "📈 Go HIGHER!"
-        else:
-            return "Too Low", "📉 Go LOWER!"
-    except TypeError:
-        g = str(guess)
-        if g == secret:
-            return "Win", "🎉 Correct!"
-        if g > secret:
-            return "Too High", "📈 Go HIGHER!"
-        return "Too Low", "📉 Go LOWER!"
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
@@ -89,20 +62,22 @@ low, high = get_range_for_difficulty(difficulty)
 st.sidebar.caption(f"Range: {low} to {high}")
 st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
 
+fresh_game = new_game_state(difficulty) #FIX: Refactored logic into logic_utils.py using Copilot Agent mode
+
 if "secret" not in st.session_state:
-    st.session_state.secret = random.randint(low, high)
+    st.session_state.secret = fresh_game["secret"]
 
 if "attempts" not in st.session_state:
-    st.session_state.attempts = 1
+    st.session_state.attempts = fresh_game["attempts"]
 
 if "score" not in st.session_state:
     st.session_state.score = 0
 
 if "status" not in st.session_state:
-    st.session_state.status = "playing"
+    st.session_state.status = fresh_game["status"]
 
 if "history" not in st.session_state:
-    st.session_state.history = []
+    st.session_state.history = fresh_game["history"]
 
 st.subheader("Make a guess")
 
@@ -132,8 +107,15 @@ with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
 if new_game:
-    st.session_state.attempts = 0
-    st.session_state.secret = random.randint(1, 100)
+    # Previous reset logic kept for reference: 
+    #FIX: Refactored logic into logic_utils.py using Copilot Agent mode
+    # st.session_state.attempts = 0 
+    # st.session_state.secret = random.randint(1, 100)
+    fresh_game = new_game_state(difficulty)
+    st.session_state.secret = fresh_game["secret"]
+    st.session_state.attempts = fresh_game["attempts"]
+    st.session_state.status = fresh_game["status"]
+    st.session_state.history = fresh_game["history"]
     st.success("New game started.")
     st.rerun()
 
@@ -160,7 +142,12 @@ if submit:
         else:
             secret = st.session_state.secret
 
-        outcome, message = check_guess(guess_int, secret)
+        outcome = check_guess(guess_int, secret) #FIX: Refactored logic into logic_utils.py using Copilot Agent mode
+        message = {
+            "Win": "🎉 Correct!",
+            "Too High": "📉 Go LOWER!",
+            "Too Low": "📈 Go HIGHER!",
+        }[outcome]
 
         if show_hint:
             st.warning(message)
