@@ -17,17 +17,23 @@ The difficulty level, normal and hard is in reverse order. Normal should be 1-50
 ## 2. How did you use AI as a teammate?
 
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
+Used Copilot
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
+I asked AI why the difficulty level normal and hard are in reverse order, It explain exactly with line number what logic is causing this issue, and gave suggestion to fix the issue. I verified the logic and fixed the agent in AI mode. Ran the app and checked in web and the issue is fixed. Same with new game start when ever win or lose. 
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+The logic that suggested and fix is accurate and didn't face any misleading fix as per the prompt. 
 
 ---
 
 ## 3. Debugging and testing your fixes
 
 - How did you decide whether a bug was really fixed?
+At the difficulty level, normal and hard range are not accurate, After the logic fix, I checked in web and range aligns perfectly. 
 - Describe at least one test you ran (manual or using pytest)  
   and what it showed you about your code.
+  I checked manually and running the game. Previously the new game didn't start after the game is win or lose. the the game didn't run when new game button is clicked. Now the button is working after winning or lose. 
 - Did AI help you design or understand any tests? How?
+Yes, it worked especially with the hints. The logic with guess and secret. When the guess > secret, it hilighted the logic and fixed the issue. 
 
 ---
 
