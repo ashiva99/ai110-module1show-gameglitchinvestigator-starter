@@ -26,12 +26,22 @@ It wrote the code, ran away, and now the game is unplayable.
 ## 📝 Document Your Experience
 
 - [ ] Describe the game's purpose.
+This game is about guessing a secret number in a limited number of tries depending on which difficulty level you choose.
 - [ ] Detail which bugs you found.
+I found that the higher and lower hints were backwards. The New Game button didn't restart the game properly after winning or lose, and the Normal and Hard difficulty ranges were swapped.
 - [ ] Explain what fixes you applied.
+I fixed the difficulty mapping so normal is 1 to 50 and hard is 1 to 100. Corrected guess comparison logic so high and low hints match the actual guess and updated the game reset logic so New Game works correctly after winning or lossing. 
 
 ## 📸 Demo
 
 - [ ] [Insert a screenshot of your fixed, winning game here]
+
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
 
 ## 🚀 Stretch Features
 
